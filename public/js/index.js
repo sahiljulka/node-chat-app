@@ -24,7 +24,7 @@ socket.on('disconnect',function(){
 })
 */
 
-socket.on('chatMessage',function(message){
+socket.on('chatMessage',function(message){debugger;
 	console.log("New Message");
-	console.log(message);
+	alert(message);
 })
