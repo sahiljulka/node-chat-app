@@ -8,10 +8,10 @@ socket.on('connect',function(){
 		"subject":"imp" 
 	});
 */
-	socket.emit('newMessage',{
+/*	socket.emit('newMessage',{
 		"from":"sahiljulka",
 		"body":"hello from client"
-	});
+	});*/
 })
 
 socket.on('disconnect',function(){
@@ -24,7 +24,7 @@ socket.on('disconnect',function(){
 })
 */
 
-socket.on('chatMessage',function(message){debugger;
+socket.on('chatMessage',function(message){
 	console.log("New Message");
 	console.log(message);
 })

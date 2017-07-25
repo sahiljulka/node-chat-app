@@ -16,32 +16,14 @@ var io=socketIO(server);
 io.on('connection',(socket)=>{
 	console.log("user connected");
 
-/*	socket.emit("newEmail",{
-		"from":"sahiljulka44@gmail.com",
-		"body":"standupComedy",
-		"subject":"imp"
-	});
-*/
-
-	/*socket.emit("chatMessage",{
-		"from":"sahiljulka",
-		"text":"hello from server"
-	});*/
-
 	socket.on('disconnect',()=>{
 		console.log("disconnect user")
 	})
-/*
-	socket.on('createEmail',(email)=>{
-		console.log(JSON.stringify(email,undefined,2));
-	})
-*/
-	socket.on('newMessage',(message)=>{
-		message.createdAt=new Date();
-		socket.emit("chatMessage",message);
-		//console.log(JSON.stringify(message,undefined,2));
-	})
 
+	socket.on('newMessage',(message)=>{
+		message.createdAt=new Date().getTime();
+		io.emit("chatMessage",message);
+	})
 });
 
 
