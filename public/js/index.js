@@ -9,18 +9,33 @@ socket.on('disconnect',function(){
 })
 
 
-socket.on('newUser',function(newObj){
-	console.log(newObj);
+socket.on('newUser',function(message){
+	let msgItem=$('<li></li>');
+	msgItem.text(`${message.from}:${message.text}`);
+	$('#messages').append(msgItem);
 })
 
-socket.emit('createMessage',{
+/*socket.emit('createMessage',{
 	"from":"sahil julka",
 	"text":"hi" 
 },function(value){
 	console.log("got it",value);
-})
+})*/
 
 socket.on('newMessage',function(message){
 	console.log("New Message");
-	console.log(message);
+	let msgItem=$('<li></li>');
+	msgItem.text(`${message.from}:${message.text}`);
+	$('#messages').append(msgItem);
+})
+
+$('#chatForm').on('submit',function(e){
+	e.preventDefault();
+	var msg=$('[name=message]').val();
+	socket.emit('createMessage',{
+		"from":"user",
+		"text":msg 
+	},function(value){
+		console.log("got it",value);
+	})
 })
