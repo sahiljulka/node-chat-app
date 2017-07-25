@@ -4,9 +4,11 @@ const socketIO=require('socket.io');
 const path=require('path');
 const http=require('http');
 
-const mainRoute=require('./routes/mainRoute');
+const userJoin=require('./routes/user');
+const messageChat=require('./routes/message')
 const pathHtml=path.join(__dirname,'../public');
 const port=process.env.PORT||3000;
+const {generateMessage}=require('./utils/message.js');	
 
 console.log(pathHtml);
 var app=express();
@@ -20,17 +22,19 @@ io.on('connection',(socket)=>{
 		console.log("disconnect user")
 	})
 
+
+	userJoin.init(socket);
+	messageChat.init(socket,io);
+	
 	socket.on('newMessage',(message)=>{
 		message.createdAt=new Date().getTime();
-		io.emit("chatMessage",message);
+
 	})
 });
 
 
 app.use(express.static(pathHtml));
 
-
-mainRoute.init(app);
 
 server.listen(port,()=>{
 	console.log("Listening to Port 3000");
