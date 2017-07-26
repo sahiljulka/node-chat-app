@@ -51,14 +51,21 @@ $('#location').on('click',function(){
   		sendLocation(position.coords.latitude, position.coords.longitude);
 	},function(){
 		alert("unable to fetch location")
-	});
+	},{timeout: 30000, enableHighAccuracy: true, maximumAge: 75000});
 
 	function sendLocation(a,b){
-		socket.emit('createMessage',{
-		"from":a,
-		"text":b 
+		socket.emit('createLocationMessage',{
+		"long":a,
+		"lat":b 
 		},function(value){
 			console.log("got it",value);
 		})
 	}
+})
+
+socket.on('newLocationMessage',function(message){
+	console.log("New Message");
+	let msgItem=$('<li></li>');
+	msgItem.text(`${message.long}:${message.lat}`);
+	$('#messages').append(msgItem);
 })
