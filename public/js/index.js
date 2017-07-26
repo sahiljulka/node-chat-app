@@ -10,23 +10,23 @@ socket.on('disconnect',function(){
 
 
 socket.on('newUser',function(message){
-	let msgItem=$('<li></li>');
-	msgItem.text(`${message.from}:${message.text}`);
-	$('#messages').append(msgItem);
+	var temp=$('#messageTemp').html();
+	var html=Mustache.render(temp,{
+		from:message.from,
+		createdAt:message.createdAt,
+		text:message.text
+	});
+	$('#messages').append(html);
 })
 
-/*socket.emit('createMessage',{
-	"from":"sahil julka",
-	"text":"hi" 
-},function(value){
-	console.log("got it",value);
-})*/
-
-socket.on('newMessage',function(message){
-	console.log("New Message");
-	let msgItem=$('<li></li>');
-	msgItem.text(`${message.from}:${message.text}`);
-	$('#messages').append(msgItem);
+socket.on('newMessage',function(message){console.log(message.text		)
+	var temp=$('#messageTemp').html();
+	var html=Mustache.render(temp,{
+		from:message.from,
+		createdAt:message.createdAt,
+		text:message.text
+	});
+	$('#messages').append(html);
 })
 
 $('#chatForm').on('submit',function(e){
@@ -70,8 +70,11 @@ $('#location').on('click',function(){
 })
 
 socket.on('newLocationMessage',function(message){
-	console.log("New Message");
-	let msgItem=$('<li></li>');
-	msgItem.text(`${message.from}:${message.text}`);
-	$('#messages').append(msgItem);
+	var temp=$('#messageTemp').html();
+	var html=Mustache.render(temp,{
+		from:message.from,
+		createdAt:message.createdAt,
+		text:message.text
+	});
+	$('#messages').append(html);
 })
