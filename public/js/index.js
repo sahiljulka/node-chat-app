@@ -30,7 +30,7 @@ socket.on('newMessage',function(message){
 })
 
 $('#chatForm').on('submit',function(e){
-	e.preventDefault();
+	e.preventDefault();debugger;
 	var msg=$('[name=message]').val();
 	socket.emit('createMessage',{
 		"from":"user",
@@ -38,4 +38,27 @@ $('#chatForm').on('submit',function(e){
 	},function(value){
 		console.log("got it",value);
 	})
+})
+
+$('#location').on('click',function(){
+
+	if (!navigator.geolocation){
+    		alert("Geolocation is not supported by your browser");
+    	return;
+  	}
+	let geo=navigator.geolocation;console.log(geo);
+	geo.getCurrentPosition(function(position) {
+  		sendLocation(position.coords.latitude, position.coords.longitude);
+	},function(){
+		alert("unable to fetch location")
+	});
+
+	function sendLocation(a,b){
+		socket.emit('createMessage',{
+		"from":a,
+		"text":b 
+		},function(value){
+			console.log("got it",value);
+		})
+	}
 })
