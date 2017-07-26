@@ -30,35 +30,41 @@ socket.on('newMessage',function(message){
 })
 
 $('#chatForm').on('submit',function(e){
-	e.preventDefault();debugger;
+	e.preventDefault();	
 	var msg=$('[name=message]').val();
 	socket.emit('createMessage',{
 		"from":"user",
 		"text":msg 
 	},function(value){
+		$('[name=message]').val("");
 		console.log("got it",value);
 	})
 })
 
 $('#location').on('click',function(){
-
+	$('#location').attr('disabled', 'disabled');
+	$('#location').html("...");
 	if (!navigator.geolocation){
     		alert("Geolocation is not supported by your browser");
     	return;
   	}
-	let geo=navigator.geolocation;console.log(geo);
-	geo.getCurrentPosition(function(position) {
+		let geo=navigator.geolocation;console.log(geo);
+		geo.getCurrentPosition(function(position) {
   		sendLocation(position.coords.latitude, position.coords.longitude);
 	},function(){
+		$('#location').prop('disabled', false);
+		$('#location').html(`<i class="fa fa-map-marker" aria-hidden="true"></i>`);
 		alert("unable to fetch location")
-	},{timeout: 30000, enableHighAccuracy: true, maximumAge: 75000});
+	});
 
 	function sendLocation(a,b){
 		socket.emit('createLocationMessage',{
 		"long":a,
 		"lat":b 
-		},function(value){
-			console.log("got it",value);
+		},function(){
+			$('#location').html(`<i class="fa fa-map-marker" aria-hidden="true"></i>`);
+			$('#location').removeAttr('disabled');
+			console.log("got it");
 		})
 	}
 })
@@ -66,6 +72,6 @@ $('#location').on('click',function(){
 socket.on('newLocationMessage',function(message){
 	console.log("New Message");
 	let msgItem=$('<li></li>');
-	msgItem.text(`${message.long}:${message.lat}`);
+	msgItem.text(`${message.from}:${message.text}`);
 	$('#messages').append(msgItem);
 })

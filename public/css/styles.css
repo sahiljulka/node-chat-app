@@ -1,0 +1,35 @@
+#left{
+	position:fixed;
+	top:0%;
+	left:0%;
+	height:100%;
+	width: 25%;
+	background-color: "teal lighten-2"
+
+}
+
+#right{
+	background-color: "#ffebee red lighten-5"
+}
+
+#chatForm{
+	position: fixed;
+	top:87%;
+	left:25%;
+	width:75%;
+}
+
+#location{
+	position:relative;
+	bottom: 5%;
+	right:0%;
+}
+
+#messagesBox{
+	position: fixed;
+	height:87%;
+	width:100%;
+	top:0%;
+	left:0%;
+	overflow: auto;
+}

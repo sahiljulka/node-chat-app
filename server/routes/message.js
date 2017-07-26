@@ -8,8 +8,9 @@ module.exports=(function(){
 			callBack('This Is From Server');
 		})
 
-		socket.on('createLocationMessage',(message,callBack)=>{
-			io.emit('newLocationMessage',generateLocationMessage(message.long,message.lat));
+		socket.on('createLocationMessage',(message,callBack)=>{debugger;
+			io.emit('newLocationMessage',generateMessage("user",`${message.long},${message.lat}`));
+			callBack();
 		})
 
 	}
