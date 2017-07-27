@@ -19,6 +19,22 @@ socket.on('newUser',function(message){
 	$('#messages').append(html);
 })
 
+function scrollToBottom(){
+	var $messages=$('#messagesBox');
+	var $newMsg=$('#messages').children('li:last-child');
+
+	var clientHeight=$messages.prop('clientHeight');
+	var scrollTop=$messages.prop('scrollTop');
+	var scrollHeight=$messages.prop('scrollHeight');
+	var newMsgHeight=$newMsg.innerHeight();
+	var lastMsgHeight=$newMsg.prev().innerHeight();
+	console.log(clientHeight+" "+scrollTop+ " "+scrollHeight+" "+newMsgHeight+" "+lastMsgHeight)
+	if(scrollTop+clientHeight+newMsgHeight+lastMsgHeight>=scrollHeight){
+		$messages.scrollTop(scrollHeight);
+	}
+
+}
+
 socket.on('newMessage',function(message){console.log(message.text		)
 	var temp=$('#messageTemp').html();
 	var html=Mustache.render(temp,{
@@ -27,6 +43,7 @@ socket.on('newMessage',function(message){console.log(message.text		)
 		text:message.text
 	});
 	$('#messages').append(html);
+	scrollToBottom();
 })
 
 $('#chatForm').on('submit',function(e){
@@ -77,4 +94,5 @@ socket.on('newLocationMessage',function(message){
 		text:message.text
 	});
 	$('#messages').append(html);
+	scrollToBottom();
 })
