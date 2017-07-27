@@ -3,13 +3,31 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width,initia-scale=1,user-scalable=no">
-		<link rel="stylesheet" type="text/css" href="./css/styles.css">
+		<link rel="stylesheet" type="text/css" href="./css/indexStyles.css">
 		<link rel="stylesheet" type="text/css" href="./css/materialize.min.css">
 		<link rel="stylesheet" href="./fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 		<title>Join|Chat-App</title>
 	</head>
 
-	<body>
-		<a href=./chat.html>click to join</a>
+	<body background="./images/1.jpg">
+		<div class="row" id="loginForm">
+		    <form class="col s12" action="./chat.html" method="get">
+		    <br><br>
+		      <div class="row">
+		        <div class="input-field col s12">
+		          <input name="name" id="name" type="text" class="validate" autocomplete="off" autofocus>
+		          <label for="name" class="active">Display Name</label>
+		        </div>
+
+		        <div class="input-field col s12">
+		          <input id="room" name="room" type="text" class="validate" autocomplete="off" >
+		          <label for="room"  class="active">Room Name</label>
+		        </div>
+		      </div>
+		      <br><br><br>
+		      <button class="btn col s12" id="loginButton">Log In</button>
+		    </form>
+  		</div>
 	</body>
+	<script type="text/javascript" src="./js/index.js"></script>
 </html>

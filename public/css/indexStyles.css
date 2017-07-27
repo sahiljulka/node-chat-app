@@ -1,0 +1,18 @@
+body{
+
+}
+
+#loginForm{
+	position: absolute;
+	top:25%;
+	left:38%;
+	height:400px;
+	width: 400px;
+	background-color: rgba(0,0,0,.4);
+}
+#loginButton{
+	height: 50px;
+}
+#name,#room{
+	color:teal;
+}
