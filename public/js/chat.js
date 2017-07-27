@@ -1,7 +1,15 @@
 var socket=io();
 
 socket.on('connect',function(){
-	console.log("Connected to server");
+	let params=$.deparam(window.location.search);
+	socket.emit('join',params,function(err){
+		if(err){
+			alert(err);
+			window.location.href='/';
+		}
+		else
+			console.log("Connected to server");
+	});
 })
 
 socket.on('disconnect',function(){
@@ -35,7 +43,7 @@ function scrollToBottom(){
 
 }
 
-socket.on('newMessage',function(message){console.log(message.text		)
+socket.on('newMessage',function(message){console.log(message.text)
 	var temp=$('#messageTemp').html();
 	var html=Mustache.render(temp,{
 		from:message.from,
@@ -96,3 +104,13 @@ socket.on('newLocationMessage',function(message){
 	$('#messages').append(html);
 	scrollToBottom();
 })
+
+socket.on('updateUserList',function(users){console.log(users);
+	let $users=$('#users');
+	$users.html('');
+	var text=$('userTemp').html();
+	users.forEach(function(user){
+
+		$users.append($('<li></li>').text(user));
+	})
+});

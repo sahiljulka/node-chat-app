@@ -1,15 +1,21 @@
 const {generateMessage,generateLocationMessage}=require('../utils/message');
+const {isValid}=require('../utils/validation.js');
 
 module.exports=(function(){
-	function init(socket,io){
+	function init(socket,io,users){
 		socket.on('createMessage',(message,callBack)=>{
-			console.log(message);
-			io.emit('newMessage',generateMessage(message.from,message.text));
-			callBack('This Is From Server');
+			if(isValid(message.text)){
+				let user=users.getUser(socket.id);
+				io.to(user.room).emit('newMessage',generateMessage(user.name,message.text));
+			}
 		})
 
-		socket.on('createLocationMessage',(message,callBack)=>{debugger;
-			io.emit('newLocationMessage',generateMessage("user",`${message.long},${message.lat}`));
+		socket.on('createLocationMessage',(message,callBack)=>{
+			let str=`${message.long},${message.lat}`;
+			if(isValid(str)){
+				let user=users.getUser(socket.id);
+				io.to(user.room).emit('newLocationMessage',generateMessage(user.name,str));
+			}
 			callBack();
 		})
 

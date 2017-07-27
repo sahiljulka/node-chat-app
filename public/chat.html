@@ -14,7 +14,9 @@
 			<div class="row">
 		      	<div class="col s3">
 			      	<div id="left" class="#01579b light-blue darken-4">
-							
+							<ol id="users" class="collection">
+
+							</ol>
 					</div>
 				</div>
 		      <div class="col s9">
@@ -43,9 +45,15 @@
 			<div>  {{text}}</div>
 		</li>
 	</script>
+	<script id='userTemp' type='text/template'>
+		<li>
+			{{name}}
+		</li>
+	</script>
 	<script type="text/javascript" src="./js/libs/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="./js/libs/materialize.min.js"></script>
 	<script type="text/javascript" src="./js/libs/mustache.js"></script>
 	<script src="/socket.io/socket.io.js"></script>
 	<script type="text/javascript" src="./js/chat.js"></script>
+	<script type="text/javascript" src="./js/libs/deparam.js"></script>
 </html>
