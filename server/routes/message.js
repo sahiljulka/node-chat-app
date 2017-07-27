@@ -7,6 +7,7 @@ module.exports=(function(){
 			if(isValid(message.text)){
 				let user=users.getUser(socket.id);
 				io.to(user.room).emit('newMessage',generateMessage(user.name,message.text));
+				callBack();
 			}
 		})
 

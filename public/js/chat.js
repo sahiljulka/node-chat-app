@@ -61,8 +61,8 @@ $('#chatForm').on('submit',function(e){
 		"from":"user",
 		"text":msg 
 	},function(value){
-		$('[name=message]').val("");
-		console.log("got it",value);
+	$('[name=message]').val("");
+	console.log("got it",value);
 	})
 })
 
